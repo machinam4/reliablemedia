@@ -23,5 +23,8 @@ use App\Http\Controllers\MPESAResponseController;
 Route::post('/c2b/confirmation', [MPESAResponseController::class, 'confirmation']);
 Route::post('/c2b/validation', [MPESAResponseController::class, 'validation']);
 
+//update player
+Route::post('/player/update', [MPESAResponseController::class, 'updatePlayer']);
+
 // sms responses
 Route::get('/sms/sms_stats', [SMSController::class, 'smsStats']);

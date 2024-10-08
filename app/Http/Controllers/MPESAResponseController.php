@@ -51,7 +51,9 @@ class MPESAResponseController extends Controller
         try {
             Players::where("TransID", $data["TransID"])->update([
             'MSISDN' => $data["MSISDN"],
-            'FirstName' => $data["FirstName"]
+            'FirstName' => $data["FirstName"],
+            'MiddleName' => $data['MiddleName'],
+            'LastName' => $data['LastName'],
         ]);
         } catch (\Throwable $th) {
             Log::info($th);

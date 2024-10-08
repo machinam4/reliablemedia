@@ -187,7 +187,7 @@
                                 <tr>
                                     <td>{{ $player->id }}</td>
                                     <td>{{ $player->TransTime }}</td>
-                                    <td>{{ $player->FirstName }}</td>
+                                    <td>{{ $player->FirstName }}&nbsp; {{ $player->MiddleName }}&nbsp; {{ $player->LastName }}</td>
                                     <td>{{ $player->MSISDN }}</td>
                                     <td>{{ $player->TransAmount }}</td>
                                     <td>{{ $player->TransID }}</td>

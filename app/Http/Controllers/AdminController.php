@@ -44,13 +44,15 @@ class AdminController extends Controller
                 $players = Players::select(
                     DB::raw("(sum(TransAmount)) as TransAmount"),
                     DB::raw("(DATE_FORMAT(TransTime, '%d-%M-%Y')) as TransTime")
-                )->whereDate('TransTime', date('Y-m-d'))->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->get();
+                )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->get();
+                // whereDate('TransTime', date('Y-m-d'))->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->get();
                 $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->sum('TransAmount');
             } else {
                 $players = Players::select(
                     DB::raw("(sum(TransAmount)) as TransAmount"),
                     DB::raw("(DATE_FORMAT(TransTime, '%d-%M-%Y')) as TransTime")
-                )->whereDate('TransTime', date('Y-m-d'))->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get();
+                )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get();
+                // whereDate('TransTime', date('Y-m-d'))->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get();
                 $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->sum('TransAmount');
             }
 

@@ -55,6 +55,8 @@ class MPESAResponseController extends Controller
             'MiddleName' => $data['MiddleName'],
             'LastName' => $data['LastName'],
         ]);
+        $SMS = new SMSController;
+        $sendSMS = $SMS->sendSMS("Thank you for participating", $data["MSISDN"]);
         } catch (\Throwable $th) {
             Log::info($th);
             return  "failed";

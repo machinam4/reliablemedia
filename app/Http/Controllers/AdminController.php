@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mpesa;
-use App\Models\Radio;
-use App\Models\Players;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MPESAController;
+use App\Models\mpesa;
+use App\Models\Players;
+use App\Models\Radio;
+use App\Models\SMS;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -90,10 +91,19 @@ class AdminController extends Controller
 
     public function sms()
     {
+        $getsms = SMS::first();
+        return view('admin.sms', ['sms' => $getsms]);
+    }
+    public function updatesms(Request $request, SMS $sms)
+    {
+        $validated = $request->validate([
+            // 'category' => 'required|string|max:255',
+            'message' => 'required',
+            // 'updated_by' => 'required|string|max:255',
+        ]);
 
-        $sms = new SMSController;
-        $getsms = json_decode($sms->getSMS())->Data;
-        return view('admin.sms', ['smss' => $getsms]);
+        $sms->update($validated);
+        return redirect()->route('sms')->with('success', 'SMS updated successfully.');
     }
     public function mpesa()
     {

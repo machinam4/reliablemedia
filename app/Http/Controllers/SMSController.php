@@ -12,15 +12,49 @@ class SMSController extends Controller
     //     $this->middleware('auth');
     // }
 
-    public function sendRequest($url)
+    // bulk.ke sms sending
+    public function sendSMS($message, $phone)
     {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        $curl_response= curl_exec($ch);
-        curl_close($ch);
-        return $curl_response;
+        $curl = curl_init();
+
+        // Prepare the data as an associative array
+        $data = [
+            'mobile' => $phone,
+            'response_type' => 'json',
+            'sender_name' => 'ReliableLtd',
+            'service_id' => 0,
+            'message' => $message,
+        ];
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://api.bulk.ke/sms/sendsms',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($data),  // Encode the array to JSON
+            CURLOPT_HTTPHEADER => [
+                'h_api_key: 3f191452728a9f81bef36a96f0a911afe0f8a83130be0299058882ae1b7ba260',
+                'Content-Type: application/json',
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            // Log the error message
+            echo 'Error:'.curl_error($curl);
+            // Log::error('Error:'.curl_error($curl));
+        }
+
+        curl_close($curl);
+        // Log::info($response);
+
+        // Return the response
+        return $response;
     }
     
     public function getSMS()

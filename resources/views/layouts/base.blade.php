@@ -70,12 +70,12 @@
                         </li>
 
                         @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer')
-                            {{-- <li class="sidebar-item  ">
+                            <li class="sidebar-item  ">
                                 <a href="{{ Route('sms') }}" class='sidebar-link'>
                                     <i class="bi bi-chat-right-dots-fill"></i>
                                     <span>SMS</span>
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="sidebar-item  ">
                                 <a href="{{ Route('radio') }}" class='sidebar-link'>
                                     <i class="bi bi-broadcast"></i>
